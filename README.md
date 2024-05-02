@@ -25,8 +25,6 @@ This upgrade promises to help the optimization:
 </div>
 Unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
 
-![[Media/vanilla_gd.jpg|center|400]]
-
 ### Absolute optimization
 In order to test the promise of momentum gradient descent to find the absolute maximum and minimum points, I tested using the following function:
 $$C(f,\phi_{2})=(0.1(f+\phi_{2}))^{2}\cdot \sin(0.01(f+\phi_{2}))$$
