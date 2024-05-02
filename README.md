@@ -19,10 +19,11 @@ This upgrade promises to help the optimization:
 - Avoid getting stuck in local maximum points
 
 ### Faster optimization
-As evident by comparing the graphs for the optimization for the function $f(x,y)=x^2+y^2$, the momentum acceleration plot (right) reaches the maximum faster in less steps.
-![alt](https://github.com/TomBleher/ALLS-Multivariable-Momentum-Gradient-Descent-/tree/main/Media/qaf.png?raw=true)
-
-This can be explained by the fact that unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
+<br>
+<div align="center">
+<img src="Media/vanilla_gd.jpg" width="50%" height="50%" />
+</div>
+Unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
 
 ![[Media/vanilla_gd.jpg|center|400]]
 
