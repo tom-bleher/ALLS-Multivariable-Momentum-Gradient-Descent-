@@ -21,6 +21,7 @@ This upgrade promises to help the optimization:
 ### Faster optimization
 As evident by comparing the graphs for the optimization for the function $f(x,y)=x^2+y^2$, the momentum acceleration plot (right) reaches the maximum faster in less steps.
 ![[Media/qaf.png|center|400]]
+![screenshot](Media/qaf.png)
 
 This can be explained by the fact that unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
 
