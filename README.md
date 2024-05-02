@@ -20,11 +20,11 @@ This upgrade promises to help the optimization:
 
 ### Faster optimization
 As evident by comparing the graphs for the optimization for the function $f(x,y)=x^2+y^2$, the momentum acceleration plot (right) reaches the maximum faster in less steps.
-![[qaf.png|center|400]]
+![[Media/qaf.png|center|400]]
 
 This can be explained by the fact that unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
 
-![[vanilla_gd.jpg|center|400]]
+![[Media/vanilla_gd.jpg|center|400]]
 
 ### Absolute optimization
 In order to test the promise of momentum gradient descent to find the absolute maximum and minimum points, I tested using the following function:
@@ -33,7 +33,7 @@ When plotting it we see it takes on the form:
 ![[Pasted image 20240123181900.png|center|400]]
 
 Focusing on the region near zero, I get the following optimization test region with a local and 'absolute' minimum points.
-![[Pasted image 20240124012635.png|center|400]]
+![[Media/Pasted image 20240124012635.png|center|400]]
 
 I will initialize the algorithm at the red point as seen above. Where a classic gradient descent will get stuck in the local minimum, the momentum gradient descent will be able to optimize to the greater 'absolute' minimum surpassing the local minimum and saddle point.
 
@@ -43,7 +43,7 @@ Using vanilla gradient descent ($\beta=0$), we arrive at the local minimum point
 ![[Pasted image 20240124013223.png|center|400]]
 
 Using momentum gradient we arrive at the greater minimum point:
-![[Pasted image 20240124013253.png|center|400]]
+![[Media/Pasted image 20240124013253.png|center|400]]
 
 As shown, the algorithm was able to get to the global minimum. Mission complete? Not exactly. The system is sensitive to the learning rates and momentum constants and will not always arrive to the optimal solution.
 
