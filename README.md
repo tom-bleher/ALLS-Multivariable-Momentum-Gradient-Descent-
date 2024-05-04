@@ -21,13 +21,13 @@ This upgrade promises to help the optimization:
 ### Faster optimization
 
 <div class="row" style="content: ''; clear: both; display: table; margin: 0 auto;">
-  <div class="column" style="float: left; width: 40%; padding: 5px;">
+  <div class="column" style="float: left; width: 50%; padding: 5px;">
     <h3 style="text-align: center;">Momentum Gradient Descent</h3>
-    <img src="Media/momentum2.png" alt="momentum" style="width:40%">
+    <img src="Media/momentum2.png" alt="momentum" style="width:50%">
   </div>
-  <div class="column" style="float: left; width: 40%; padding: 5px;">
+  <div class="column" style="float: left; width: 50%; padding: 5px;">
     <h3 style="text-align: center;">Vanilla Gradient Descentt</h3>
-    <img src="Media/vanilla2.png" alt="Vanilla" style="width:40%">
+    <img src="Media/vanilla2.png" alt="Vanilla" style="width:50%">
   </div>
 </div>
 
