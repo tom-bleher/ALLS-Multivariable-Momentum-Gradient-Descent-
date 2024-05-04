@@ -114,43 +114,49 @@ For better organization in the function `process_images()`, I broke up the code 
 Using these, the `process_images()` function takes on the following form:
 
 ```python
-def process_images(self, new_images):
+    def process_images(self):
+        self.images_processed += 1
+        self.iteration_data.append(self.images_processed)
 
-self.initialize_image_files()
-new_images = [image_path for image_path in new_images if os.path.exists(image_path)]
-new_images.sort(key=os.path.getctime)
+        if self.images_processed == 1:
+                   
+            self.focus_history.append(self.initial_focus)                       
+            self.second_dispersion_history.append(self.initial_second_dispersion)
 
-for image_path in new_images:
-	img_mean_count = self.calc_xray_count(image_path)
-	self.n_images_count_sum += np.sum(img_mean_count)
+            self.count_function(self.focus_history[-1], self.second_dispersion_history[-1])   
+            self.calc_derivatives()
+                        
+            print(f"initial focus = {self.focus_history[-1]}, initial second dispersion = {self.second_dispersion_history[-1]}")
 
-	self.run_count += 1
+        elif self.images_processed == 2:
+            self.new_focus = self.focus_history[-1] +1
+            self.new_second_dispersion =  self.second_dispersion_history[-1] +1
 
-	if self.run_count % self.n_images == 0:
-		self.mean_count_per_n_images = np.mean(img_mean_count)
-		self.count_history = np.append(self.count_history, self.mean_count_per_n_images)
-		self.n_images_run_count += 1
-		self.iteration_data = np.append(self.iteration_data, self.n_images_run_count)
+            self.focus_history.append(self.new_focus)
+            self.second_dispersion_history.append(self.new_second_dispersion)
 
-		if self.n_images_run_count == 1 or self.n_images_run_count ==2:
-			print('-------------')  
+            self.count_function(self.focus_history[-1], self.second_dispersion_history[-1])   
+            self.calc_derivatives()
 
-			if self.run_count == 1:                        
-				self.focus_history = np.append(self.focus_history, self.initial_focus)      
-				self.second_dispersion_history = np.append(self.second_dispersion_history, self.initial_second_dispersion)
-				self.third_dispersion_history = np.append(self.third_dispersion_history, self.initial_third_dispersion)
-				print(f"initial values are: focus {self.focus_history[-1]}, second_dispersion {self.second_dispersion_history[-1]}, third_dispersion {self.third_dispersion_history[-1]}")
-				print(f"initial directions are: focus {self.random_direction[0]}, second_dispersion {self.random_direction[1]}, third_dispersion {self.random_direction[2]}")
-				self.initial_optimize()
-				
-			if self.run_count == 2:                        
-				self.initial_optimize()
-				
-		if self.n_images_run_count > 2:
-			self.n_images_dir_run_count += 1
-			self.optimize_count()
-		self.write_values() # write values and send via FTP connection
-		print(f"mean_count_per_{self.n_images}_images {self.count_history[-1]}, current values are: focus {self.focus_history[-1]}, second_dispersion {self.second_dispersion_history[-1]}, third_dispersion {self.third_dispersion_history[-1]}")
-		self.plot_reset() # update plotting lists and reset variables
-		print('-------------')             
+            print(f"function_value {self.count_history[-1]}, current values are: focus {self.focus_history[-1]}, second_dispersion {self.second_dispersion_history[-1]}")
+
+        else:
+   
+            self.der_images_processed += 1             
+            self.count_function(self.focus_history[-1], self.second_dispersion_history[-1])   
+            self.optimize_count()
+
+            print(f"function_value {self.count_history[-1]}, current values are: focus {self.focus_history[-1]}, second_dispersion {self.second_dispersion_history[-1]}")
+
+        QtCore.QCoreApplication.processEvents()
+
+        # update the plots
+        self.plot_curve.setData(self.der_iteration_data, self.count_history)
+        self.total_gradient_curve.setData(self.der_iteration_data, self.total_gradient_history)
+        
+        # reset variables for next optimization round
+        self.image_group_count_sum = 0
+        self.mean_count_per_image_group  = 0
+        self.img_mean_count = 0  
+        print('-------------')        
 ```
