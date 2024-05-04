@@ -20,16 +20,9 @@ This upgrade promises to help the optimization:
 
 ### Faster optimization
 
-<div class="row" style="content: ''; clear: both; display: table; margin: 0 auto;">
-  <div class="column" style="float: left; width: 50%; padding: 5px;">
-    <h3 style="text-align: center;">Momentum Gradient Descent</h3>
-    <img src="Media/momentum2.png" alt="momentum" style="width:20%">
-  </div>
-  <div class="column" style="float: left; width: 50%; padding: 5px;">
-    <h3 style="text-align: center;">Vanilla Gradient Descentt</h3>
-    <img src="Media/vanilla2.png" alt="Vanilla" style="width:20%">
-  </div>
-</div>
+| ![Momentum Gradient Descent](Media/momentum2.png) | ![Vanilla Gradient Descent](Media/vanilla2.png) |
+|:--------------------------------------------------:|:-----------------------------------------------:|
+|            Momentum Gradient Descent             |             Vanilla Gradient Descent            |
 
 
 Unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
