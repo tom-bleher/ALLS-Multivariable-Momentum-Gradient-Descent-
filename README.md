@@ -21,11 +21,11 @@ This upgrade promises to help the optimization:
 ### Faster optimization
 <div style="display: flex;">
   <div style="flex: 1; padding: 10px; text-align: center;">
-    <img src="Media/momentum2.png" alt="Image 1" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+    <img src="Media/momentum2.png" alt="Image 1" style="max-width: 50%; height: auto; display: block; margin: 0 auto;">
     <div>Momentum Gradient Descent</div>
   </div>
   <div style="flex: 1; padding: 10px; text-align: center;">
-    <img src="Media/vanilla2.png" alt="Image 2" style="max-width: 100%; height: auto; display: block; margin: 0 auto;">
+    <img src="Media/vanilla2.png" alt="Image 2" style="max-width: 50%; height: auto; display: block; margin: 0 auto;">
     <div>Vanilla Gradient Descent</div>
   </div>
 </div>
