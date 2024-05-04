@@ -19,16 +19,19 @@ This upgrade promises to help the optimization:
 - Avoid getting stuck in local maximum points
 
 ### Faster optimization
-<div style="display: flex;">
-  <div style="flex: 1; padding: 10px; text-align: center;">
-    <img src="Media/momentum2.png" alt="Image 1" style="max-width: 10%; height: auto; display: block; margin: 0 auto;">
-    <div>Momentum Gradient Descent</div>
+
+<div class="row" style="content: ''; clear: both; display: table; margin: 0 auto; max-width: 1200px;">
+  <div class="column" style="float: left; width: 33.33%; padding: 5px;">
+    <h3 style="text-align: center;">Momentum Gradient Descent</h3>
+    <img src="Media/momentum2.png" alt="momentum" style="width:100%">
   </div>
-  <div style="flex: 1; padding: 10px; text-align: center;">
-    <img src="Media/vanilla2.png" alt="Image 2" style="max-width: 10%; height: auto; display: block; margin: 0 auto;">
-    <div>Vanilla Gradient Descent</div>
+  <div class="column" style="float: left; width: 33.33%; padding: 5px;">
+    <h3 style="text-align: center;">Vanilla Gradient Descentt</h3>
+    <img src="Media/vanilla2.png" alt="Vanilla" style="width:100%">
   </div>
 </div>
+
+
 Unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
 
 ### Absolute optimization
