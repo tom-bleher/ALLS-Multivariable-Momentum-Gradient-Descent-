@@ -19,7 +19,7 @@ This upgrade promises to help the optimization:
 - Avoid getting stuck in local maximum points
 
 ### Faster optimization
-
+As evident by comparing the graphs for the optimization process, the momentum acceleration plot (right) reaches the maximum faster in less steps.
 | ![Momentum Gradient Descent](Media/momentum2.png) | | ![Vanilla Gradient Descent](Media/vanilla2.png) |
 |:--------------------------------------------------:|---|:-----------------------------------------------:|
 |            Momentum Gradient Descent             |   |             Vanilla Gradient Descent            |
