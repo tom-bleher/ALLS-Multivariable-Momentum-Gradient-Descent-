@@ -20,9 +20,9 @@ This upgrade promises to help the optimization:
 
 ### Faster optimization
 
-| ![Momentum Gradient Descent](Media/momentum2.png) | ![Vanilla Gradient Descent](Media/vanilla2.png) |
-|:--------------------------------------------------:|:-----------------------------------------------:|
-|            Momentum Gradient Descent             |             Vanilla Gradient Descent            |
+| ![Momentum Gradient Descent](Media/momentum2.png) | | ![Vanilla Gradient Descent](Media/vanilla2.png) |
+|:--------------------------------------------------:|---|:-----------------------------------------------:|
+|            Momentum Gradient Descent             |   |             Vanilla Gradient Descent            |
 
 
 Unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
