@@ -20,7 +20,7 @@ This upgrade promises to help the optimization:
 
 ### Faster optimization
 
-<div class="row" style="content: ''; clear: both; display: table; margin: 0 auto; max-width: 1200px;">
+<div class="row" style="content: ''; clear: both; display: table; margin: 0 auto;">
   <div class="column" style="float: left; width: 33.33%; padding: 5px;">
     <h3 style="text-align: center;">Momentum Gradient Descent</h3>
     <img src="Media/momentum2.png" alt="momentum" style="width:50%">
