@@ -134,7 +134,6 @@ class BetatronApplication(QtWidgets.QApplication):
         self.count_focus_der = 0.2*(0.1*(x+y))*np.sin(0.01*(x+y))+0.01*(np.cos(0.01*(x+y)))*(0.1*(x+y))**2
         self.count_second_dispersion_der = 0.2*(0.1*(x+y))*np.sin(0.01*(x+y))+0.01*(np.cos(0.01*(x+y)))*(0.1*(x+y))**2
 
-
         self.focus_der_history.append(self.count_focus_der)
         self.second_dispersion_der_history.append(self.count_second_dispersion_der)
 
@@ -209,11 +208,7 @@ class BetatronApplication(QtWidgets.QApplication):
         # update the plots
         self.plot_curve.setData(self.der_iteration_data, self.count_history)
         self.total_gradient_curve.setData(self.der_iteration_data, self.total_gradient_history)
-        
-        # reset variables for next optimization round
-        self.image_group_count_sum = 0
-        self.mean_count_per_image_group  = 0
-        self.img_mean_count = 0  
+
         print('-------------')
 
 if __name__ == "__main__":
