@@ -142,7 +142,7 @@ class BetatronApplication(QtWidgets.QApplication):
 
         self.random_direction = np.array([])
 
-        self.momentum = 0.9
+        self.momentum = 0.999
 
         self.image_handler = ImageHandler(self.process_images)
         self.file_observer = Observer()
@@ -287,8 +287,8 @@ class BetatronApplication(QtWidgets.QApplication):
     def optimize_count(self):
         derivatives = self.calc_derivatives()
 
-        if np.abs(self.focus_learning_rate * derivatives["focus"]) > 1:
-            self.new_focus = self.focus_history[-1] + (self.momentum*(self.focus_history[-1]-self.focus_history[-2])) - self.focus_learning_rate*self.focus_der_history[-1]
+        if np.abs((self.momentum*(self.focus_history[-1]-self.focus_history[-2])) - self.focus_learning_rate * derivatives["focus"]) > 1:
+            self.new_focus = self.focus_history[-1] + (self.momentum*(self.focus_history[-1]-self.focus_history[-2])) + self.focus_learning_rate*self.focus_der_history[-1]
 
             self.new_focus = np.clip(self.new_focus, self.FOCUS_LOWER_BOUND, self.FOCUS_UPPER_BOUND)
             self.new_focus = round(self.new_focus)
@@ -296,9 +296,8 @@ class BetatronApplication(QtWidgets.QApplication):
             self.focus_history = np.append(self.focus_history, [self.new_focus])
             mirror_values[0] = self.new_focus
 
-        if np.abs(self.second_dispersion_learning_rate * derivatives["second_dispersion"]) > 1:
-
-            self.new_second_dispersion = (self.second_dispersion_history[-1] + (self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) - self.second_dispersion_learning_rate*self.second_dispersion_der_history[-1])
+        if np.abs((self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) - self.second_dispersion_learning_rate*derivatives["second_dispersion"]) > 1:
+            self.new_second_dispersion = (self.second_dispersion_history[-1] + (self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) + self.second_dispersion_learning_rate*self.second_dispersion_der_history[-1])
                                                        
             self.new_second_dispersion = np.clip(self.new_second_dispersion, self.SECOND_DISPERSION_LOWER_BOUND, self.SECOND_DISPERSION_UPPER_BOUND)
             self.new_second_dispersion = round(self.new_second_dispersion)
@@ -306,8 +305,8 @@ class BetatronApplication(QtWidgets.QApplication):
             self.second_dispersion_history = np.append(self.second_dispersion_history, [self.new_second_dispersion])
             dispersion_values[0] = self.new_second_dispersion
 
-        if np.abs(self.third_dispersion_learning_rate * derivatives["third_dispersion"]) > 1:
-            self.new_third_dispersion = (self.third_dispersion_history[-1] + (self.momentum*(self.third_dispersion_history[-1]-self.third_dispersion_history[-2])) - self.third_dispersion_learning_rate*self.third_dispersion_der_history[-1])
+        if np.abs((self.momentum*(self.third_dispersion_history[-1]-self.third_dispersion_history[-2])) - self.third_dispersion_learning_rate*derivatives["third_dispersion"]) > 1:
+            self.new_third_dispersion = (self.third_dispersion_history[-1] + (self.momentum*(self.third_dispersion_history[-1]-self.third_dispersion_history[-2])) + self.third_dispersion_learning_rate*self.third_dispersion_der_history[-1])
 
             self.new_third_dispersion = np.clip(self.new_third_dispersion, self.THIRD_DISPERSION_LOWER_BOUND, self.THIRD_DISPERSION_UPPER_BOUND)
             self.new_third_dispersion = round(self.new_third_dispersion)
@@ -317,21 +316,21 @@ class BetatronApplication(QtWidgets.QApplication):
         
         # if the change in all variables is less than one (we can not take smaller steps thus this is the optimization boundry)
         if (
-            np.abs(self.third_dispersion_learning_rate * derivatives["third_dispersion"]) < 1 and
-            np.abs(self.second_dispersion_learning_rate * derivatives["second_dispersion"]) < 1 and
-            np.abs(self.focus_learning_rate * derivatives["focus"]) < 1
+            np.abs((self.momentum*(self.third_dispersion_history[-1]-self.third_dispersion_history[-2])) - self.third_dispersion_learning_rate*derivatives["third_dispersion"]) < 1 and
+            np.abs((self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) - self.second_dispersion_learning_rate*derivatives["second_dispersion"]) < 1 and
+            np.abs((self.momentum*(self.focus_history[-1]-self.focus_history[-2])) - self.focus_learning_rate * derivatives["focus"]) < 1
         ):
             print("Convergence achieved")
             
         # stop optimizing parameter if we reached optimization resolution limit
         
-        elif np.abs(self.third_dispersion_learning_rate * derivatives["third_dispersion"]) < 1:
+        elif np.abs((self.momentum*(self.third_dispersion_history[-1]-self.third_dispersion_history[-2])) - self.third_dispersion_learning_rate*derivatives["third_dispersion"]) < 1:
             print("Convergence achieved in third dispersion")
         
-        elif np.abs(self.second_dispersion_learning_rate * derivatives["second_dispersion"]) < 1:
+        elif np.abs((self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) - self.second_dispersion_learning_rate*derivatives["second_dispersion"]) < 1:
             print("Convergence achieved in second dispersion")
             
-        elif np.abs(self.focus_learning_rate * derivatives["focus"]) < 1:
+        elif np.abs((self.momentum*(self.focus_history[-1]-self.focus_history[-2])) - self.focus_learning_rate * derivatives["focus"]) < 1:
             print("Convergence achieved in focus")
         
         # if the count is not changing much this means that we are near the peak 
