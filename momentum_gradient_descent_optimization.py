@@ -287,7 +287,7 @@ class BetatronApplication(QtWidgets.QApplication):
     def optimize_count(self):
         derivatives = self.calc_derivatives()
 
-        if np.abs((self.momentum*(self.focus_history[-1]-self.focus_history[-2])) - self.focus_learning_rate * derivatives["focus"]) > 1:
+        if np.abs((self.momentum*(self.focus_history[-1]-self.focus_history[-2])) + self.focus_learning_rate * derivatives["focus"]) > 1:
             self.new_focus = self.focus_history[-1] + (self.momentum*(self.focus_history[-1]-self.focus_history[-2])) + self.focus_learning_rate*self.focus_der_history[-1]
 
             self.new_focus = np.clip(self.new_focus, self.FOCUS_LOWER_BOUND, self.FOCUS_UPPER_BOUND)
@@ -296,7 +296,7 @@ class BetatronApplication(QtWidgets.QApplication):
             self.focus_history = np.append(self.focus_history, [self.new_focus])
             mirror_values[0] = self.new_focus
 
-        if np.abs((self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) - self.second_dispersion_learning_rate*derivatives["second_dispersion"]) > 1:
+        if np.abs((self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) + self.second_dispersion_learning_rate*derivatives["second_dispersion"]) > 1:
             self.new_second_dispersion = (self.second_dispersion_history[-1] + (self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) + self.second_dispersion_learning_rate*self.second_dispersion_der_history[-1])
                                                        
             self.new_second_dispersion = np.clip(self.new_second_dispersion, self.SECOND_DISPERSION_LOWER_BOUND, self.SECOND_DISPERSION_UPPER_BOUND)
