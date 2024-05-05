@@ -34,9 +34,9 @@ class BetatronApplication(QtWidgets.QApplication):
         self.count_history = []
 
         # set learning rates for the different optimization variables
-        self.focus_learning_rate = 4.5
-        self.second_dispersion_learning_rate = 4.5
-        self.momentum = 0.99
+        self.focus_learning_rate = 0.04
+        self.second_dispersion_learning_rate = 0.04
+        self.momentum = 0.999
 
     # ------------ Plotting ------------ #
 
@@ -115,6 +115,7 @@ class BetatronApplication(QtWidgets.QApplication):
 
         with open(DISPERSION_FILE_PATH, 'w') as file:
             file.write(f'order2 = {dispersion_values[0]}\n')
+            file.write(f'order3 = {dispersion_values[1]}\n')
 
         QtCore.QCoreApplication.processEvents()
 
@@ -150,7 +151,7 @@ class BetatronApplication(QtWidgets.QApplication):
     def optimize_count(self):
         derivatives = self.calc_derivatives()
 
-        if np.abs(self.focus_learning_rate * derivatives["focus"]) > 1:
+        if np.abs((self.momentum*(self.focus_history[-1]-self.focus_history[-2])) - self.focus_learning_rate * derivatives["focus"]) > 1:
             self.new_focus = self.focus_history[-1] + (self.momentum*(self.focus_history[-1]-self.focus_history[-2])) - self.focus_learning_rate*self.focus_der_history[-1]
 
             self.new_focus = np.clip(self.new_focus, self.FOCUS_LOWER_BOUND, self.FOCUS_UPPER_BOUND)
@@ -159,8 +160,7 @@ class BetatronApplication(QtWidgets.QApplication):
             self.focus_history = np.append(self.focus_history, [self.new_focus])
             mirror_values[0] = self.new_focus
 
-        if np.abs(self.second_dispersion_learning_rate * derivatives["second_dispersion"]) > 1:
-
+        if np.abs((self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) - self.second_dispersion_learning_rate*derivatives["second_dispersion"]) > 1:
             self.new_second_dispersion = (self.second_dispersion_history[-1] + (self.momentum*(self.second_dispersion_history[-1]-self.second_dispersion_history[-2])) - self.second_dispersion_learning_rate*self.second_dispersion_der_history[-1])
                                                        
             self.new_second_dispersion = np.clip(self.new_second_dispersion, self.SECOND_DISPERSION_LOWER_BOUND, self.SECOND_DISPERSION_UPPER_BOUND)
@@ -201,9 +201,11 @@ class BetatronApplication(QtWidgets.QApplication):
             self.count_function(self.focus_history[-1], self.second_dispersion_history[-1])   
             self.optimize_count()
 
-            print(f"function_value {self.count_history[-1]}, current values are: focus {self.focus_history[-1]}, second_dispersion {self.second_dispersion_history[-1]}")
+            print(f"iteration {self.iteration_data[-1]},function_value {self.count_history[-1]}, current values are: focus {self.focus_history[-1]}, second_dispersion {self.second_dispersion_history[-1]}")
 
         QtCore.QCoreApplication.processEvents()
+
+        self.write_values()
 
         # update the plots
         self.plot_curve.setData(self.der_iteration_data, self.count_history)
@@ -214,7 +216,7 @@ class BetatronApplication(QtWidgets.QApplication):
 if __name__ == "__main__":
     app = BetatronApplication([])
 
-    for _ in range(50):
+    for _ in range(100):
         app.process_images()
 
     win = QtWidgets.QMainWindow()
