@@ -9,7 +9,7 @@ $$W_{n+1}=W_{n}+\beta(W_{n}-W_{n-1})-\gamma \nabla f(W_{n})$$
 
 Where $\gamma$ is the learning rate as previously seen in the classic gradient descent algorithm, and $\beta$ is the new momentum constant. 
 
-In python code this mathematical formula takes on the following form:
+In Python this mathematical formula takes on the following form:
 ```python
 self.new_focus = self.focus_history[-1] + (self.momentum*(self.focus_history[-1]-(self.focus_history[-2])) - self.focus_learning_rate*self.count_focus_der[-1]
 ```
@@ -19,13 +19,13 @@ This upgrade promises to help the optimization:
 - Avoid getting stuck in local maximum points
 
 ### Faster optimization
-As evident by comparing the graphs for the optimization process, the momentum acceleration plot (right) reaches the maximum faster in less steps.
+As evident by comparing the graphs for the optimization process, the momentum acceleration plot (right) reaches the maximum faster in fewer steps.
 | ![Momentum Gradient Descent](Media/momentum2.png) | | ![Vanilla Gradient Descent](Media/vanilla2.png) |
 |:--------------------------------------------------:|---|:-----------------------------------------------:|
 |            Momentum Gradient Descent             |   |             Vanilla Gradient Descent            |
 
 
-Unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depend on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
+Unlike classic gradient descent, momentum gradient descent takes less sharp turns. Essentially, where gradient descent depends on the previous gradient, momentum gradient descent incorporates a moving average of past gradients, allowing it to smooth out variations in the optimization.
 
 <br>
 <div align="center">
@@ -41,7 +41,7 @@ When plotting it we see it takes on the form:
 <img src="Media/Pasted image 20240123181900.png" width="50%" height="50%" />
 </div>
 
-Focusing on the region near zero, I get the following optimization test region with a local and 'absolute' minimum points.
+Focusing on the region near zero, I get the following optimization test region with local and 'absolute' minimum points.
 <br>
 <div align="center">
 <img src="Media/Pasted image 20240124012635.png" width="50%" height="50%" />
@@ -63,4 +63,4 @@ Using momentum gradient we arrive at the greater minimum point:
 <img src="Media/Pasted image 20240124013253.png" width="50%" height="50%" />
 </div>
 
-As shown, the algorithm was able to get to the global minimum. Mission complete? Not exactly. The system is sensitive to the learning rates and momentum constants and will not always arrive to the optimal solution.
+As shown, the algorithm was able to get to the global minimum. Mission complete? Not exactly. The system is sensitive to the learning rates and momentum constants and will not always arrive at the optimal solution.
